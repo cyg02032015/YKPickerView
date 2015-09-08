@@ -1,7 +1,5 @@
 # YKPickerView
-========
-YKPickerView
-========
+
 ##Use
 
         picker = YKDatePickerView(frame: CGRect(x: 0, y: 150, width: self.view.width, height: 104))
