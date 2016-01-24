@@ -10,7 +10,7 @@ import UIKit
 
 // 打印
 func CGLog<T>(message: T, line: Int = __LINE__, function: String = __FUNCTION__, file: String = __FILE__) {
-    println("[\(line)], \(function)---:\(message)")
+    print("[\(line)], \(function)---:\(message)")
 }
 
 
@@ -44,8 +44,8 @@ public class YKCalender: NSObject {
         greCal = cal
         weekdays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
         let now = NSDate()
-        let calUnit = NSCalendarUnit.CalendarUnitEra | NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute | NSCalendarUnit.CalendarUnitSecond | NSCalendarUnit.CalendarUnitWeekday
-        let dateComponents = cal!.components(calUnit, fromDate: now)
+//        let calUnits = [NSCalendarUnit.Era, NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second, NSCalendarUnit.Weekday]
+        let dateComponents = cal!.components([NSCalendarUnit.Era, NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second, NSCalendarUnit.Weekday], fromDate: now)
         era = String(format: "%d", dateComponents.era)
         year = String(format: "%d", dateComponents.year)
         month = String(format: "%d", dateComponents.month)
@@ -61,21 +61,21 @@ public class YKCalender: NSObject {
         }
         return years
     }
-    public func monthsIn(#year: Int) -> [String] {
+    public func monthsIn(year year: Int) -> [String] {
         var months = [String]()
         for i in 0 ..< MONTHS_COUNT {
             months.append(String(format: "%d", i + 1))
         }
         return months
     }
-    public func daysIn(#month: String, year: Int) -> [String] {
+    public func daysIn(month month: String, year: Int) -> [String] {
         var days = [String]()
         let dateComponents = NSDateComponents()
         dateComponents.year = year
-        dateComponents.month = month.toInt()!
+        dateComponents.month = Int(month)!
         dateComponents.day = 1
         let date = greCal.dateFromComponents(dateComponents)
-        let range = greCal.rangeOfUnit(NSCalendarUnit.CalendarUnitDay, inUnit: NSCalendarUnit.CalendarUnitMonth, forDate: date!)
+        let range = greCal.rangeOfUnit(NSCalendarUnit.Day, inUnit: NSCalendarUnit.Month, forDate: date!)
         for i in 0 ..< range.length {
             days.append(String(format: "%d", i + 1))
         }

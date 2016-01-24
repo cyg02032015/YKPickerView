@@ -82,7 +82,7 @@ public class YKPickerView: UIView {
             dataSourceByTabelview(component: i)
         }
     }
-    func dataSourceByTabelview(#component: Int) {
+    func dataSourceByTabelview(component component: Int) {
         var tvRowsInComponent = 0
         tvRowsInComponent = dataSource.pickerView(self, numberOfRowsInComponent: component)
         var mArray = NSMutableArray()
@@ -134,8 +134,6 @@ extension YKPickerView: UITableViewDelegate, UITableViewDataSource {
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         let row = selectedCellIndex(sv: scrollView)
         hightLightCellWithRow(row, component: scrollView.tag - 1000)
-        componentSelected(scrollView.tag - 1000)
-
     }
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !scrollView.dragging {
@@ -145,7 +143,7 @@ extension YKPickerView: UITableViewDelegate, UITableViewDataSource {
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         selectedCellInCenter(scrollView)
     }
-    func selectedCellIndex(#sv: UIScrollView) -> Int{
+    func selectedCellIndex(sv sv: UIScrollView) -> Int{
         var offsetY = sv.contentOffset.y
         offsetY += sv.contentInset.top
         var rowF = offsetY / cellHeight
@@ -159,7 +157,7 @@ extension YKPickerView: UITableViewDelegate, UITableViewDataSource {
         }
         
         let dataInComponent = dataSourceArr[sv.tag - 1000] as! NSArray
-        
+      
         return row
     }
     
@@ -169,6 +167,7 @@ extension YKPickerView: UITableViewDelegate, UITableViewDataSource {
         var newOffset = CGFloat(row) * cellHeight
         newOffset -= containerView.height / 2 - cellHeight / 2
         sv.setContentOffset(CGPoint(x: 0, y: newOffset), animated: true)
+        componentSelected(sv.tag - 1000)
     }
     
     func hightLightCellWithRow(cellIndex: Int, component: Int) {

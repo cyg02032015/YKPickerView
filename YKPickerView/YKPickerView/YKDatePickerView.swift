@@ -32,8 +32,8 @@ class YKDatePickerView: UIView {
         
         cal = YKCalender(start: 1970, end: 2050)
         setYears()
-        setMonthsIn(year: cal.year.toInt()!)
-        setDaysIn(month: cal.month, year: cal.year.toInt()!)
+        setMonthsIn(year: Int(cal.year)!)
+        setDaysIn(month: cal.month, year: Int(cal.year)!)
         let yearIndex = years.indexOfObject(cal.year)
         let monthIndex = months.indexOfObject(cal.month)
         let dayIndex = days.indexOfObject(cal.day)
@@ -52,11 +52,11 @@ class YKDatePickerView: UIView {
         years = cal.yearsInRange()
     }
     
-    func setMonthsIn(#year: Int)  {
+    func setMonthsIn(year year: Int)  {
         months = cal.monthsIn(year: year)
     }
     
-    func setDaysIn(#month: String, year: Int){
+    func setDaysIn(month month: String, year: Int){
         days = cal.daysIn(month: month, year: year)
     }
 }
@@ -105,17 +105,17 @@ extension YKDatePickerView: YKPickerViewDataSource, YKPickerViewDelegate {
         case 0:
             let yearstr = years[row] as! String
             cal.year = yearstr
-            setDaysIn(month: cal.month, year: cal.year.toInt()!)
-            picker.reloadPicker(2, day: cal.day.toInt()!)
+            setDaysIn(month: cal.month, year: Int(cal.year)!)
+            picker.reloadPicker(2, day: Int(cal.day)!)
         case 1:
             let monthstr = months[row] as! String
             cal.month = monthstr
-            setDaysIn(month: cal.month, year: cal.year.toInt()!)
-            picker.reloadPicker(2, day: cal.day.toInt()!)
+            setDaysIn(month: cal.month, year: Int(cal.year)!)
+            picker.reloadPicker(2, day: Int(cal.day)!)
         case 2:
             let daystr = days[row] as! String
             cal.day = daystr
-            setDaysIn(month: cal.month, year: cal.year.toInt()!)
+            setDaysIn(month: cal.month, year: Int(cal.year)!)
         default:
             break
         }
